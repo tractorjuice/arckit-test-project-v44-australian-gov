@@ -33,11 +33,11 @@ The most-consumed artifacts are `requirements` (37 commands), `principles` (21 c
 
 ### Key Conventions
 
-- **Document IDs**: Format `ARC-{PROJECT_ID}-{TYPE}-v{VERSION}.md` (e.g., `ARC-001-REQ-v1.0.md`). Multi-instance types use `ARC-{PID}-{TYPE}-{NUM}-v{VERSION}.md`. Generate with `.arckit/scripts/bash/generate-document-id.sh`.
+- **Document IDs**: Format `ARC-{PROJECT_ID}-{TYPE}-v{VERSION}.md` (e.g., `ARC-001-REQ-v1.0.md`). Multi-instance types use `ARC-{PID}-{TYPE}-{NUM}-v{VERSION}.md`. The ID generator script is provided by the ArcKit plugin at `.arckit/scripts/bash/generate-document-id.sh`.
 - **Type codes**: PRIN, STKE, REQ, RISK, SOBC, STRAT, PLAT, DATA, DPIA, RSCH, SOW, EVAL, TRAC, ANLZ, BKLG, SRVN, DVOP, MLOP, FNOP, OPER, RDMP, TCOP, AIPL, ATRS, SECD, MSBD, JSP9, SVCA, STRY. Multi-instance: ADR, DIAG, WARD, DMC.
 - **Global artifacts** (principles) go in `projects/000-global/`
 - **Project-specific artifacts** go in `projects/{PROJECT_ID}/` with subdirectories: `decisions/`, `diagrams/`, `wardley-maps/`, `data-contracts/`, `reviews/`, `external/`, `vendors/`, `final/`
-- **Templates**: Default templates are provided by the ArcKit plugin. Custom overrides in `.arckit/templates/` or `.arckit/templates-custom/` take precedence. Always read the relevant template before generating a document.
+- **Templates**: Default templates are provided by the ArcKit plugin (the `.arckit/` directory is populated by the plugin, not checked into the repo). Custom overrides in `.arckit/templates/` or `.arckit/templates-custom/` take precedence. Always read the relevant template before generating a document.
 - **Version** is in the `VERSION` file (currently 2.4.4) — include in generated document metadata
 - **External documents**: Commands auto-discover user-provided files (vendor HLDs, policy docs, pen test reports) from `projects/{project}/external/`, `projects/{project}/vendors/{vendor}/`, and `projects/000-global/policies/`. These enhance output but are never required.
 
@@ -49,9 +49,27 @@ Research-heavy commands (`/arckit.research`, `/arckit.datascout`, `/arckit.aws-r
 
 The ArcKit plugin bundles MCP servers for AWS Knowledge and Microsoft Learn for cloud research via `/arckit.aws-research` and `/arckit.azure-research`.
 
+### Reference Documents
+
+- `DEPENDENCY-MATRIX.md` — Full 48-command dependency matrix showing M/R/O relationships between all ArcKit commands
+- `WORKFLOW-DIAGRAMS.md` — Mermaid diagrams for 5 workflow paths (Standard, UK Government, UK Gov Platform Strategy, UK Gov AI, MOD Defence). Use these to visualise command execution order.
+- `docs/` — ArcKit documentation index with links to guides provided by the plugin
+
+### Getting Started (Quick Start)
+
+```
+/arckit.principles                              # Tier 0: Global principles (projects/000-global/)
+/arckit.stakeholders {Project Name}             # Tier 1: Stakeholder analysis
+/arckit.risk {Project Name}                     # Tier 1.5: Risk register
+/arckit.sobc {Project Name}                     # Tier 2: Strategic outline business case
+/arckit.requirements {Project Name} - {desc}    # Tier 3: Requirements specification
+```
+
+After Tier 3, branch into design, procurement, or compliance paths as needed. Consult `DEPENDENCY-MATRIX.md` for which artifacts each command requires.
+
 ### Generated Artifacts (This Project)
 
-No artifacts have been generated yet. Run `/arckit.principles` to begin, then follow the tier order in `DEPENDENCY-MATRIX.md`.
+No artifacts have been generated yet. Run `/arckit.principles` to begin, then follow the tier order in `DEPENDENCY-MATRIX.md`. Update this section as artifacts are created.
 
 ## Australian Government Context
 
